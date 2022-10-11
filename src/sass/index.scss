@@ -1,0 +1,146 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Reem+Kufi:wght@400;600;700&display=swap');
+@import "./faq";
+
+
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+
+
+:root{
+    --bgColor:#F6F8FC;
+    --fontColor:#6e6e6e;
+}
+
+
+body{
+    background: #F6F8FC;
+
+}
+.App{
+    max-width: 1440px;
+    margin: auto;
+    // display: grid;
+    // grid-template-areas: "pokemon pokemons"
+    //                      "headr headr";
+    // grid-template-columns: 3fr 1fr;
+
+    main{
+        display: grid;
+        grid-template-columns: 3fr 1fr;
+        justify-items: center;
+        padding: 2rem;
+    }
+    
+    .app-container__pokemons{
+        grid-area: pokemons;
+        background-color: black;
+
+    }
+    
+    .app-container__pokemon{
+        grid-area: pokemon;
+        width: 100%;
+    }
+    .app-container__header{
+        grid-area: headr;
+        width: 100%;
+
+    }
+}
+
+//HEADER
+
+.header-container{
+    display: flex;
+    width: 100%;
+    height: 10vh;
+
+
+    .header-container__logo{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        img{
+            height: 80%;
+            margin: 1rem;
+        }
+    }
+
+    .header-container__buttons{
+        width: 100%;
+        justify-self: flex-end;
+        ul{
+            height: 100%;
+            display: flex;
+            list-style: none;
+            justify-content:space-between;
+            align-items: center;
+            padding: 0 1rem;
+            li:first-child{
+                margin-left: 5rem;
+            }
+        }
+    }
+}
+
+//POKEMONS
+
+.pokemons-container{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    width: 100%;
+}
+
+//POKEMON
+
+.pokemons-container__pokemon{
+    background-color: #fff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    padding: 4rem 2rem 0 2rem;
+    margin: 2rem 1rem;
+    width: 70%;
+    border-radius: 1rem;
+    position: relative;
+    min-height: 18vh !important;
+    img{
+        position: absolute;
+        top: -2rem;
+    }
+}
+
+.stat{
+    min-height: 370px !important;
+}
+
+.FIRE,
+.GRASS,
+.POISON,
+.FLYING,
+.WATER,
+.ELECTRIC,
+.ROCK,
+.FIGHTING,
+.NORMAL,
+.DRAGON,
+.GHOST,
+.FAIRY,
+.PSYCHIC,
+.STEEL,
+.ICE,
+.GROUND,
+.BUG,
+.DARK{
+    background-color: #FD8A4B;
+    padding: .2rem .5rem;
+    border-radius: .5rem;
+    text-align: center;
+    color:#5E1400;
+    font-weight: bold;
+}
