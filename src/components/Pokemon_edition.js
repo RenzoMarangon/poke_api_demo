@@ -9,8 +9,8 @@ import Autocomplete from '@mui/material/Autocomplete';
 import Alert from './Alert';
 const Pokemon_edition = ({pokemon}) => {
 
-  const { id } = pokemon
-  const [ input, handleInputChange ] = useInputChange({ });
+  const { id,...poke } = pokemon
+  const [ input, handleInputChange ] = useInputChange({poke});
 
   const [ inputStats, inputStatstChange ] = useInputChange({});
 
@@ -32,7 +32,7 @@ const Pokemon_edition = ({pokemon}) => {
     e.preventDefault()
 
     const poke = { ...input };
-    if(!!inputStats) poke.stats = inputStats;
+    !Object.entries(inputStats).length === 0 ? poke.stats = inputStats : poke.stats = pokemon.stats;
     poke.type = inputType;
     savePokemon(poke)
   }
@@ -40,8 +40,8 @@ const Pokemon_edition = ({pokemon}) => {
 
   const savePokemon = (pokeData) => {
 
-    const url =  `https://poke-apix.herokuapp.com/api/pokemon/${id} `;
-    // const url = 'http://localhost:8080/api/pokemon';
+    // const url =  `https://poke-apix.herokuapp.com/api/pokemon/${id}`;
+    const url = `http://localhost:8080/api/pokemon/${id}`;
     // const urlImg = 'https://poke-apix.herokuapp.com/api/upload/pokemons/6345f66e12bd80e56e9c68b7'
     const config ={
       headers:{
@@ -49,7 +49,10 @@ const Pokemon_edition = ({pokemon}) => {
       }
     }
 
+    pokeData.name === pokemon.name && delete pokeData.name;
 
+    pokeData.numberID === pokemon.numberID && delete pokeData.numberID;
+    console.log(pokeData)
     axios.put( 
         url, 
         pokeData,
@@ -58,31 +61,32 @@ const Pokemon_edition = ({pokemon}) => {
     .then((resp)=>{
       const { id } = resp.data
       console.log(resp)
-      
-      if(inputFile ){
-        const url = `https://poke-apix.herokuapp.com/api/upload/pokemons/${id}`
-        const data = new FormData();
-        data.append("archive",[...inputFile][0])
-        axios.put(
-          url,
-          data,
-          config)
-        .then()
-        .catch((d)=>{
-          console.log(d)
-        })
-      }
+    
 
     })
-    .catch(({response})=>{
-        const err = response.data.errors.errors;
-        setErrs(err)
+    .catch((response)=>{
+        // const err = response.data.errors.errors;
+        // setErrs(err)
         console.log(response)
 
         setOpen(true);
         return
 
     })
+
+    // if(inputFile ){
+    //   const url = `https://poke-apix.herokuapp.com/api/upload/pokemons/${id}`
+    //   const data = new FormData();
+    //   data.append("archive",[...inputFile][0])
+    //   axios.put(
+    //     url,
+    //     data,
+    //     config)
+    //   .then()
+    //   .catch((d)=>{
+    //     console.log(d)
+    //   })
+    // }
   }
 
 
@@ -91,22 +95,22 @@ const Pokemon_edition = ({pokemon}) => {
   return (
     <div className='pokemon_create'>
     <h2>Editar pokemon</h2>
-
     <form onSubmit={formHandleSubmitPokemon}>
 
         <h2 className='title_pokemon'>Pokemon</h2>
         
-        <TextField label="Nombre" defaultValue={`${pokemon.name}`}  type="text" name="name"/>
+        <li className='name'><TextField  label="Nombre" defaultValue={`${pokemon.name}`}  type="text" name="name"/></li>
 
         <li className='type'>
           <Autocomplete
             value={value}
+            label={'Tipo'}
             onChange={(event, newValue) => {
               setValue(newValue);
             }}
             inputValue={inputValue}
             onInputChange={(event, newInputValue) => {
-
+              
               setInputValue(newInputValue);
 
               switch(newInputValue){
@@ -154,17 +158,17 @@ const Pokemon_edition = ({pokemon}) => {
           />
         </li> 
 
-        <li className='id'><TextField id="outlined-basic" label="#ID" variant="outlined" type="text" name="numberID" onChange={ handleInputChange } /></li> 
-        <li className='generation'><TextField id="outlined-basic" label="Generacion" variant="outlined" type="text" name="generation" onChange={ handleInputChange } placeholder={'Generacion'}  /></li> 
+        <li className='id'><TextField label="#ID" defaultValue={`${pokemon.numberID}`} type="text" name="numberID" onChange={ handleInputChange } /></li> 
+        <li className='generation'><TextField  label="Generacion" defaultValue={`${pokemon.generation}`}  type="number" name="generation" onChange={ handleInputChange } placeholder={'Generacion'}  /></li> 
         <h3 className='title_stats'>Estadísticas</h3>
-        <li className='hp'><TextField id="outlined-basic" label="Puntos de vida" variant="outlined" type="text" name="hp" onChange={ inputStatstChange }   /></li> 
-        <li className='attk'><TextField id="outlined-basic" label="Ataque" variant="outlined" type="text" name="attack" onChange={ inputStatstChange }   /></li> 
-        <li className='defense'><TextField id="outlined-basic" label="Defensa" variant="outlined" type="text" name="defense" onChange={ inputStatstChange }  /></li> 
-        <li className='sp_attk'><TextField id="outlined-basic" label="Ataque especial" variant="outlined" type="text" name="special_attk" onChange={ inputStatstChange }   /> </li>
-        <li className='sp_defense'><TextField id="outlined-basic" label="Defensa especial" variant="outlined" type="text" name="special_defense" onChange={ inputStatstChange }   /></li>
-        <li className='vel'><TextField id="outlined-basic" label="Velocidad" variant="outlined" type="text" name="velocity" onChange={ inputStatstChange }    /></li>
+        <li className='hp'><TextField label="Puntos de vida" defaultValue={`${pokemon.stats.hp}`} type="number" name="hp" onChange={ inputStatstChange }   /></li> 
+        <li className='attk'><TextField label="Ataque" defaultValue={`${pokemon.stats.attack}`} type="number" name="attack" onChange={ inputStatstChange }   /></li> 
+        <li className='defense'><TextField label="Defensa" defaultValue={`${pokemon.stats.defense}`} type="number" name="defense" onChange={ inputStatstChange }  /></li> 
+        <li className='sp_attk'><TextField label="Ataque especial" defaultValue={`${pokemon.stats.special_attk}`} type="number" name="special_attk" onChange={ inputStatstChange }   /> </li>
+        <li className='sp_defense'><TextField label="Defensa especial" defaultValue={`${pokemon.stats.special_defense}`} type="number" name="special_defense" onChange={ inputStatstChange }   /></li>
+        <li className='vel'><TextField label="Velocidad" defaultValue={`${pokemon.stats.velocity}`} type="number" name="velocity" onChange={ inputStatstChange }    /></li>
         <h3 class='title_image'>Imagen</h3>
-        <li className='img_file'><TextField id="outlined-basic"  variant="outlined" type="file" class="archive" name="archive" onChange={ (e)=>{ inputFileChange(e.target.files)} }    /></li>
+        <li className='img_file'><TextField type="file" class="archive" name="archive" onChange={ (e)=>{ inputFileChange(e.target.files)} }    /></li>
 
     
         <li className='button'><Button type='submit'>Editar pokemon</Button></li>

@@ -15,15 +15,17 @@ const Pokemons_delete = ({data, setAside}) => {
         setAside(<Pokemons_delete_pokemon pokemon={data.pokemons[0]} />)
     })
     return (
-        
-        <div className='pokemons-container'>
-        <h2>Borrar pokemon</h2>
-        {
-        data.pokemons.map(pokemon => {
-            return <Button onClick={()=>{changeAside(pokemon)}}><Pokemons_pokemon  key={pokemon.id} pokemon={pokemon} /></Button>
-            })
+        <div className='delete_pokemons'>
+            <h2>Borrar pokemon</h2>
             
-        }
+            <div className='pokemons-container'>
+            {
+            data.pokemons.map(pokemon => {
+                return <Button onClick={()=>{changeAside(pokemon)}}><Pokemons_pokemon  key={pokemon.id} pokemon={pokemon} /></Button>
+                })
+                
+            }
+            </div>
         </div>
       )
 }

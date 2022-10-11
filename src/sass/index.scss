@@ -145,3 +145,10 @@ body{
     color:#5E1400;
     font-weight: bold;
 }
+
+
+.delete_pokemons,.edit_pokemons{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}

@@ -66,7 +66,6 @@ const Pokemons_create = () => {
         data,
         config)
       .then()
-      .catch(console.log)
     })
     .catch((response)=>{
  

@@ -12,18 +12,19 @@ const Pokemons_edit = ({data,setAside, setIndex}) => {
 
     useEffect(()=>{
         setAside(<Pokemons_edit_pokemon pokemon={data.pokemons[0]} setIndex={setIndex} />)
-        console.log(setIndex)
     })
     return (
         
-        <div className='pokemons-container'>
-        <h2>Editar pokemon</h2>
-        {
-        data.pokemons.map(pokemon => {
-            return <Button onClick={()=>{changeAside(pokemon)}}><Pokemons_pokemon  key={pokemon.id} pokemon={pokemon}  /></Button>
-            })
-            
-        }
+        <div className='edit_pokemons'>
+            <h2>Editar pokemon</h2>
+            <div className='pokemons-container'>
+            {
+            data.pokemons.map(pokemon => {
+                return <Button onClick={()=>{changeAside(pokemon)}}><Pokemons_pokemon  key={pokemon.id} pokemon={pokemon}  /></Button>
+                })
+                
+            }
+            </div>
         </div>
       )
 }

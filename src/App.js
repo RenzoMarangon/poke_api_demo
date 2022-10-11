@@ -15,7 +15,6 @@ import { Button, TextField } from '@mui/material';
 import Alert from './components/Alert';
 
 
-import openAlert from './helpers/openAlert';
 
 function App() {
 
@@ -31,14 +30,9 @@ function App() {
 
   const [ aside, setAside ] = useState(<></>)
 
-
-
-
-
-
   const getPokemons = () => {
-    setIndex( <Pokemons_container data={data} setAside={setAside} className='app-container__pokemons' /> )
-    setAside(<Pokemons_stat pokemon={ pokeStat } className='app-container__pokemon' />)
+    setIndex( <Pokemons_container data={data} setAside={setAside}  /> )
+    setAside(<Pokemons_stat pokemon={ pokeStat }  />)
 
   }
 
@@ -50,16 +44,16 @@ function App() {
   const deletePokemons = () => {
     if(!loading) {
 
-        setIndex(<Pokemons_delete data={data} setAside = {setAside} className='app-container__pokemons' />)
-        setAside(<Pokemons_stat pokemon={ pokeStat } className='app-container__pokemon' />)
+        setIndex(<Pokemons_delete data={data} setAside = {setAside}  />)
+        setAside(<Pokemons_stat pokemon={ pokeStat }  />)
     }
     
   }
 
   const editPokemons = () => {
     if(!loading) {
-      setIndex(<Pokemons_edit data={data} setAside = {setAside} setIndex = {setIndex} className='app-container__pokemons' />)
-      setAside(<Pokemons_stat pokemon={ pokeStat } className='app-container__pokemon' />)
+      setIndex(<Pokemons_edit data={data} setAside = {setAside} setIndex = {setIndex}  />)
+      setAside(<Pokemons_stat pokemon={ pokeStat }  />)
   }
   }
 
@@ -71,8 +65,8 @@ function App() {
 
   useEffect(()=>{
 
-    !loading && setIndex(<Pokemons_container data={data} setAside={setAside} className='app-container__pokemons' />)
-    !loading && setAside(<Pokemons_stat pokemon={ pokeStat } className='app-container__pokemon' />)
+    !loading && setIndex(<Pokemons_container data={data} setAside={setAside}  />)
+    !loading && setAside(<Pokemons_stat pokemon={ pokeStat } />)
     !loading && setPokeStat( data.pokemons[data.pokemons.length-1] )
     
 
@@ -91,7 +85,7 @@ function App() {
     <div className="App">
 
       <header>
-        <Header className='app-container__header' post = {postPokemons}  get = {getPokemons} put = {editPokemons} deletx = {deletePokemons} faq = {showFAQ} />
+        <Header post = {postPokemons}  get = {getPokemons} put = {editPokemons} deletx = {deletePokemons} faq = {showFAQ} />
       </header>
       
       <main>

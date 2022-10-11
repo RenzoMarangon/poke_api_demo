@@ -44,7 +44,6 @@ const Alert = ({open, setOpen, msg}) => {
           action={action}
         />
             
-        {console.log(msg)}
       </div>
     );
 }

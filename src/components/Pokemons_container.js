@@ -11,7 +11,7 @@ const Pokemons_container = ({data, setAside}) => {
     setAside(<Pokemons_pokemon pokemon={pokemon} />)
 }
   return (
-    <div className='pokemons-container'>
+    <div className='pokemons-container'> 
     {
       data.pokemons.map(pokemon => {
       return <Button onClick={()=>{changeAside(pokemon)}}><Pokemons_pokemon key={pokemon.id} pokemon={pokemon} /></Button>
