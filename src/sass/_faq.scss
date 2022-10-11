@@ -1,6 +1,6 @@
 .main-container{
     max-width: 1200px;
-    margin:20vh auto;
+    margin:2rem auto;
     display: grid;
     grid-template-columns: 1fr 1fr;
     grid-template-areas: "img questions";
@@ -60,27 +60,8 @@
                         padding: .2rem;
                         margin-bottom: .5rem;
                     }
-                    .pokemons{
-                        border-radius: .5rem;
-                        border-left: solid 4px #FFE9B8 ;
-                        background-color: white;
-                        padding: .5rem;
-                        p{
-                            .link{
-                                margin:.5rem;
-                                background-color: rgba(173, 216, 230, 0.192);
-                                padding: .2rem;
-                                border-radius: .5rem;
-                            }
-                            .admin{
-                                background-color: red;
-                                color:#fff;
-                                padding: .2rem;
-                                border-radius: .4rem;
-                                font-size: .6rem;
-                            }
-                        }
-                    }
+                    
+                    
                     
    
 
