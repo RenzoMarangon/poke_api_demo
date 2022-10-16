@@ -7,11 +7,13 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import Slide from '@mui/material/Slide';
 
+const succesIMG = './success.svg'
+
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
-const Use_Modal = ({open,setOpen,pokemon,editOrDelete,button, msg}) => {
+const Use_Modal_Success = ({open,setOpen,pokemon,editOrDelete,loading}) => {
     
       const handleClose = () => {
         setOpen(false);
@@ -26,29 +28,26 @@ const Use_Modal = ({open,setOpen,pokemon,editOrDelete,button, msg}) => {
             onClose={handleClose}
             aria-describedby="alert-dialog-slide-description"
           >
-            <DialogTitle>{
-                `Usted está a punto de ${ editOrDelete === 'delete' ? 'eliminar' : 'editar' } a ${!!pokemon && pokemon.name}`
-              }</DialogTitle>
+            <DialogTitle>
+                {loading && 'Espere mientras se realiza la acción'}
+                {!loading && `${!!pokemon && pokemon.name} ${ editOrDelete === 'delete' ? 'eliminado' : 'editado' } correctamente`}
+              </DialogTitle>
 
             <DialogContent>
               <DialogContentText id="alert-dialog-slide-description">
                 <div className='modal'>
-                    <img  src={!!pokemon && pokemon.img} />
-                    {
-                      editOrDelete === 'delete' 
-                        ? <p> ¿Está seguro/a de eliminar al pókemon? </p>
-                        : <p> Ir a la edición de pókemon </p> 
-                    }
+                    { (loading && editOrDelete === 'delete') && 'eliminación en curso' }
+                    { (loading && editOrDelete === 'edit') && 'edición en curso' }
+                    { !loading && <img  src={succesIMG} />}
                 </div>
               </DialogContentText>
             </DialogContent>
             <DialogActions>
-              <Button onClick={handleClose}>Cancelar</Button>
-              {button}
+              <Button onClick={handleClose}>Volver</Button>
             </DialogActions>
           </Dialog>
         </div>
       );
 }
 
-export default Use_Modal
+export default Use_Modal_Success

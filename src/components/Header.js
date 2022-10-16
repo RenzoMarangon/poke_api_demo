@@ -4,7 +4,7 @@ import Button from '@mui/material/Button';
 
 const logo = './logo.png'
 
-const Header = ({post, get, faq, put, deletx}) => {
+const Header = ({post, faq, get }) => {
   return (
     <header className='header-container'>
         <div className='header-container__logo'> 
@@ -14,17 +14,12 @@ const Header = ({post, get, faq, put, deletx}) => {
         <div className='header-container__buttons'> 
             <ul>
                 <li className='buttons__button'>
-                  <Button variant="text" onClick={get}>Obtener pokemons</Button>  
+                  <Button variant="text" onClick={get}>Ver pokemons</Button>  
                 </li>
                 <li className='buttons__button'>
                   <Button variant="text" onClick={post}>Crear pokemon</Button>  
                 </li>
-                <li className='buttons__button'>
-                  <Button variant="text" onClick={put}>Editar pokemon</Button>  
-                </li>
-                <li className='buttons__button'>
-                  <Button variant="text" onClick={deletx}>Borrar pokemon</Button>  
-                </li>
+
                 <li className='buttons__button'>
                   <Button variant="text" onClick={faq}>F.A.Q.</Button>  
                 </li>

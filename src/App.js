@@ -26,15 +26,14 @@ function App() {
 
   const [newPokemon, setNewPokemon ] = useState(false);
   
-  const [ pokeStat, setPokeStat ] = useState( loading  )
 
   const [ index, setIndex ] = useState(<Pokemons_container_skeleton />)
 
   const [ aside, setAside ] = useState(<></>)
 
   const getPokemons = () => {
-    setIndex( <Pokemons_container data={data} setAside={setAside}  /> )
-    setAside(<Pokemons_stat pokemon={ pokeStat }  />)
+    !loading && setIndex( <Pokemons_container data={data} setAside={setAside} setIndex={setIndex} /> )
+    !loading && setAside(<Pokemons_stat pokemon={ data.pokemons[data.pokemons.length-1] }  setIndex={setIndex} setAside={setAside}/>)
 
   }
 
@@ -43,21 +42,6 @@ function App() {
     setAside(<div></div>)
   }
 
-  const deletePokemons = () => {
-    if(!loading) {
-
-        setIndex(<Pokemons_delete data={data} setAside = {setAside}  />)
-        setAside(<Pokemons_stat pokemon={ pokeStat }  />)
-    }
-    
-  }
-
-  const editPokemons = () => {
-    if(!loading) {
-      setIndex(<Pokemons_edit data={data} setAside = {setAside} setIndex = {setIndex}  />)
-      setAside(<Pokemons_stat pokemon={ pokeStat }  />)
-  }
-  }
 
   const showFAQ = () => {
     setIndex(<Faq />)
@@ -66,13 +50,13 @@ function App() {
 
 
   useEffect(()=>{
-
-    !loading && setIndex(<Pokemons_container data={data} setAside={setAside}  />)
-    !loading && setAside(<Pokemons_stat pokemon={ pokeStat } />)
-    !loading && setPokeStat( data.pokemons[data.pokemons.length-1] )
+    console.log(data)
+    !loading && setIndex(<Pokemons_container data={data} setAside={setAside} setIndex={setIndex}  />)
+    !loading && setAside(<Pokemons_stat pokemon={ data.pokemons[data.pokemons.length-1] } setIndex={setIndex} setAside={setAside} />)
+    
     
 
-  },[loading,pokeStat])
+  },[loading])
 
   useEffect(()=>{
     newPokemon && (
@@ -87,7 +71,7 @@ function App() {
     <div className="App">
 
       <header>
-        <Header post = {postPokemons}  get = {getPokemons} put = {editPokemons} deletx = {deletePokemons} faq = {showFAQ} />
+        <Header post = {postPokemons}  get = {getPokemons} faq = {showFAQ} />
       </header>
       
       <main>
