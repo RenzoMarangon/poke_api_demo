@@ -14,7 +14,7 @@ const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
-const Use_Modal_Success = ({open,setOpen,pokemon,editOrDelete, thenOrCatch}) => {
+const Use_Modal_Success = ({open,setOpen,pokemon,editOrDelete, thenOrCatch, err}) => {
     
       const handleClose = () => {
         setOpen(false);
@@ -33,6 +33,7 @@ const Use_Modal_Success = ({open,setOpen,pokemon,editOrDelete, thenOrCatch}) => 
             <DialogTitle>
                 { thenOrCatch === 'then' && `${!!pokemon && pokemon.name} ${ editOrDelete === 'delete' ? 'eliminado' : 'editado' } correctamente`}
                 { thenOrCatch === 'catch' && `Se ha producido un error`}
+                {!!err && console.log(err)}
               </DialogTitle>
 
             <DialogContent>

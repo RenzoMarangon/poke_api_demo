@@ -6,30 +6,36 @@ import { Button } from '@mui/material';
 import '../css/index.css'
 import useNumberInput from '../hooks/useNumberInput';
 
+import Use_Modal from './Use_Modal';
+import Use_Modal_Success from './Use_Modal_Success';
+import Use_Modal_Process from './Use_Modal_process';
+
+
 import Autocomplete from '@mui/material/Autocomplete';
-import Use_Alert from './Use_Alert';
 const Pokemon_edition = ({pokemon}) => {
 
   const { id,...poke } = pokemon;
+
+  //HOOKS para manejar inputs
   const [ input, handleInputChange ] = useInputChange({});
-
   const [ inputStats, inputStatstChange ] = useNumberInput(pokemon.stats);
-
   const [ inputFile, inputFileChange ] = useState('');
-
-  const [ inputType, inputTypeChange ] = useState(pokemon.type);
-
+  const [ inputType, inputTypeChange ] = useState(pokemon.type[0]);
   
-  const options = ['Fuego', 'Agua', 'Eléctrico', 'Acero', 'Fantasma', 'Planta','Lucha', 'Roca','Psiquico','Dragon','Hada', 'Veneno','Volador','Bicho','Tierra','Normal','Hielo'];
+  //HOOKS para mostrar u ocultar modals
+  const [ open, setOpen ] = useState(false)
+  const [ editOrDelete, setEditOrDelete ] = useState('')
+  const [ openModalSuccess, setOpenModalSuccess ] = useState(false)
+  const [ openModalProcess, setOpenModalProcess ] = useState(false)
+  const [ thenOrCatch, setThenOrCatch ] = useState('')
+  const [ errorx, setErrorx ] = useState('');
 
+  //Para manejar el autocomplete
+  const options = ['Fuego', 'Agua', 'Eléctrico', 'Acero', 'Fantasma', 'Planta','Lucha', 'Roca','Psiquico','Dragon','Hada', 'Veneno','Volador','Bicho','Tierra','Normal','Hielo'];
   const [value, setValue] = useState(pokemon.type);
   const [inputValue, setInputValue] = useState('');
 
-  //alert
-  const [open, setOpen] = useState(false);
-  const [msg, setMsg] = useState('');
-  const [severity, setSeverity] = useState('')
-
+  //Guardo los input en un objeto y los envio a la DB
   const formHandleSubmitPokemon = (e) => {
     e.preventDefault()
 
@@ -37,11 +43,16 @@ const Pokemon_edition = ({pokemon}) => {
     poke.stats = {...inputStats};
     poke.type = inputType;
 
-    savePokemon(poke);
+    setOpen(true);
   }
 
-
+  //Guardo el pokemon en la base de datos
   const savePokemon = (pokeData) => {
+    setEditOrDelete('edit');
+    //Cierro el modal de confirmacion
+    setOpen(false)
+    //Muestro el modal de 'en proceso'
+    setOpenModalProcess(true)
 
     const url =  `https://poke-apix.herokuapp.com/api/pokemon/${id}`;
     // const url = `http://localhost:8080/api/pokemon/${id}`;
@@ -52,46 +63,45 @@ const Pokemon_edition = ({pokemon}) => {
       }
     }
 
+    console.log(pokeData.type)
+    
 
+    // axios.put( 
+    //     url, 
+    //     pokeData,
+    //     config
+    // )
+    // .then(()=>{
+    //   setOpenModalProcess(false)
+    //   setThenOrCatch('then')
+    //   setOpenModalSuccess(true);
 
-    axios.put( 
-        url, 
-        pokeData,
-        config
-    )
-    .then(()=>{
-      setSeverity('success')
-      setMsg(`${!!pokeData.name ? pokeData.name : pokemon.name} actualizado correctamente`)
-      setOpen(true);
+    // })
+    // .catch((err)=>{
+    //   setOpenModalProcess(false)
+    //   setThenOrCatch('catch');
+    //   setOpenModalSuccess(true);
+    //   setErrorx(err)
+    //   return
 
-      setTimeout(()=>{
-        window.location.reload();
-      },2000)
-    })
-    .catch((err)=>{
-        setSeverity('error')
-        setMsg(err.response.data.errors.errors[0].msg)
-        setOpen(true);
+    // })
 
-        return
-
-    })
-
-    if(inputFile ){
-      const url = `https://poke-apix.herokuapp.com/api/upload/pokemons/${id}`
-      const data = new FormData();
-      data.append("archive",[...inputFile][0])
-      axios.put(
-        url,
-        data,
-        config)
-      .then()
-      .catch((d)=>{
-        console.log(d)
-      })
-    }
+    // if(inputFile ){
+    //   const url = `https://poke-apix.herokuapp.com/api/upload/pokemons/${id}`
+    //   const data = new FormData();
+    //   data.append("archive",[...inputFile][0])
+    //   axios.put(
+    //     url,
+    //     data,
+    //     config)
+    //   .then()
+    //   .catch((d)=>{
+    //     console.log(d)
+    //   })
+    // }
   }
 
+    const btn = <Button onClick={()=>{ savePokemon(poke) }}>Editar</Button>;
 
 
 
@@ -112,7 +122,7 @@ const Pokemon_edition = ({pokemon}) => {
         {/* Autocomplete */}
         <li className='type'>
           <Autocomplete
-            value={value}
+            value={inputValue}
             label={'Tipo'}
             name="type"
             onChange={(event, newValue) => {
@@ -124,39 +134,39 @@ const Pokemon_edition = ({pokemon}) => {
               setInputValue(newInputValue);
 
               switch(newInputValue){
-                case 'Fuego': {inputTypeChange('FIRE') 
+                case 'Fuego' || 'FIRE': {inputTypeChange('FIRE') 
                               break;}
-                case 'Agua': {inputTypeChange('WATER') 
+                case 'Agua' || 'WATER': {inputTypeChange('WATER') 
                               break;}
-                case 'Eléctrico': {inputTypeChange('ELECTRIC') 
+                case 'Eléctrico' || 'ELECTRIC': {inputTypeChange('ELECTRIC') 
                               break;}
-                case 'Veneno': {inputTypeChange('POISON') 
+                case 'Veneno' || 'POISON' : {inputTypeChange('POISON') 
                               break;}
-                case 'Roca': {inputTypeChange('ROCK') 
+                case 'Roca' || 'ROCK' : {inputTypeChange('ROCK') 
                               break;}
-                case 'Normal': {inputTypeChange('NORMAL') 
+                case 'Normal' || 'NORMAL' : {inputTypeChange('NORMAL') 
                               break;}
-                case 'Dragon': {inputTypeChange('DRAGON') 
+                case 'Dragon' || 'DRAGON' : {inputTypeChange('DRAGON') 
                               break;}
-                case 'Fantasma': {inputTypeChange('GHOST') 
+                case 'Fantasma' || 'GHOST' : {inputTypeChange('GHOST') 
                               break;}
-                case 'Hada': {inputTypeChange('FAIRY') 
+                case 'Hada' || 'FAIRY' : {inputTypeChange('FAIRY') 
                               break;}
-                case 'Acero': {inputTypeChange('STEEL') 
+                case 'Acero' || 'STEEL' : {inputTypeChange('STEEL') 
                               break;}
-                case 'Hielo': {inputTypeChange('ICE') 
+                case 'Hielo' || 'ICE' : {inputTypeChange('ICE') 
                               break;}
-                case 'Psiquico': {inputTypeChange('PSYCHIC') 
+                case 'Psiquico' || 'PSYCHIC' : {inputTypeChange('PSYCHIC') 
                               break;}
-                case 'Tierra': {inputTypeChange('GROUND') 
+                case 'Tierra' || 'GROUND' : {inputTypeChange('GROUND') 
                               break;}
-                case 'Bicho': {inputTypeChange('BUG') 
+                case 'Bicho' || 'BUG' : {inputTypeChange('BUG') 
                               break;}
-                case 'Volador': {inputTypeChange('FLYING') 
+                case 'Volador' || 'FLYING' : {inputTypeChange('FLYING') 
                               break;}
-                case 'Planta': {inputTypeChange('GRASS') 
+                case 'Planta' || 'GRASS' : {inputTypeChange('GRASS') 
                               break;}
-                case 'Lucha': {inputTypeChange('FIGHTING') 
+                case 'Lucha' || 'FIGHTING' : {inputTypeChange('FIGHTING') 
                               break;}
               }
               
@@ -183,7 +193,9 @@ const Pokemon_edition = ({pokemon}) => {
 
     </form>
 
-    <Use_Alert open={open} setOpen={setOpen} msg={msg} severity={severity}/>
+    <Use_Modal open={ open } setOpen={ setOpen } pokemon={ pokemon } editOrDelete={ editOrDelete } button={ btn } />
+    <Use_Modal_Success open={ openModalSuccess } setOpen={ setOpenModalSuccess } pokemon={ pokemon } editOrDelete={ editOrDelete } thenOrCatch={ thenOrCatch } err={errorx} />
+    <Use_Modal_Process open={ openModalProcess } setOpen={ setOpenModalProcess } />
   </div>
 
   )

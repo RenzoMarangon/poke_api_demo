@@ -11,7 +11,7 @@ const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
-const Use_Modal = ({open,setOpen,pokemon,editOrDelete,button, msg}) => {
+const Use_Modal = ({open,setOpen,pokemon,editOrDelete,button}) => {
     
       const handleClose = () => {
         setOpen(false);

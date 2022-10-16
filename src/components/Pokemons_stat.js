@@ -10,9 +10,9 @@ import Use_Modal_Process from './Use_Modal_process';
 const Pokemons_stat = ({pokemon, setIndex, setAside}) => {
     const { name, type, numberID, img, id } = pokemon;
 
+    //HOOKS para mostrar u ocultar modals
     const [ open, setOpen ] = useState(false)
     const [ editOrDelete, setEditOrDelete ] = useState('')
-    const [ modalMsg, setModalMsg ] = useState('')
     const [ openModalSuccess, setOpenModalSuccess ] = useState(false)
     const [ openModalProcess, setOpenModalProcess ] = useState(false)
     const [ thenOrCatch, setThenOrCatch ] = useState('')
@@ -99,7 +99,7 @@ const Pokemons_stat = ({pokemon, setIndex, setAside}) => {
       </div>
 
       {/* Modal y alert */}
-      <Use_Modal open={ open } setOpen={ setOpen } pokemon={ pokemon } editOrDelete={ editOrDelete } button={ btn } msg={modalMsg} />
+      <Use_Modal open={ open } setOpen={ setOpen } pokemon={ pokemon } editOrDelete={ editOrDelete } button={ btn } />
       <Use_Modal_Success open={ openModalSuccess } setOpen={ setOpenModalSuccess } pokemon={ pokemon } editOrDelete={ editOrDelete } thenOrCatch={ thenOrCatch } />
       <Use_Modal_Process open={ openModalProcess } setOpen={ setOpenModalProcess } />
     </div>
