@@ -12,7 +12,9 @@ import axios from 'axios';
 import Pokemons_delete from './components/Pokemons_delete';
 import Pokemons_edit from './components/Pokemons_edit';
 import { Button, TextField } from '@mui/material';
-import Alert from './components/Alert';
+import useAlert from './components/Use_Alert';
+
+import Modal from './components/Modal';
 
 
 
@@ -94,6 +96,7 @@ function App() {
       { index }
       { aside }
       </main>
+
 
       
     </div>

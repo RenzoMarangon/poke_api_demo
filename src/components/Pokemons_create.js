@@ -7,6 +7,7 @@ import Box from '@mui/material/Box';
 import { Button } from '@mui/material';
 import '../css/index.css'
 import Autocomplete from '@mui/material/Autocomplete';
+import Use_Alert from './Use_Alert';
 
 const Pokemons_create = () => {
 
@@ -22,6 +23,12 @@ const Pokemons_create = () => {
   const [ inputType, inputTypeChange ] = useState('');
 
 
+  //Alert
+  const [ open, setOpen ] = useState(false);
+  const [ msg, setMsg ] = useState('');
+  const [ alertSeverity, setAlertSeverity ] = useState('');
+
+
   const options = ['Fuego', 'Agua', 'Eléctrico', 'Acero', 'Fantasma', 'Planta','Lucha', 'Roca','Psiquico','Dragon','Hada', 'Veneno','Volador','Bicho','Tierra','Normal','Hielo'];
 
   const [value, setValue] = useState(options[0]);
@@ -33,8 +40,9 @@ const Pokemons_create = () => {
     poke.stats = inputStats;
     poke.type = inputType;
   
+
+
     setPokeData({ pokemon:poke })
-    // savePokemon(poke)
     savePokemon(poke)
   }
 
@@ -65,11 +73,21 @@ const Pokemons_create = () => {
         url,
         data,
         config)
-      .then()
+      .then(()=>{
+        setAlertSeverity('success')
+        setMsg(`${pokeData.name} creado correctamente`)
+        setOpen(true)
+
+        setTimeout(()=>{
+          setOpen(false);
+          window.location.reload();
+        },2500)
+      })
     })
-    .catch((response)=>{
- 
-        console.log(response)
+    .catch((err)=>{
+        setMsg(err.response.data.errors.errors[0].msg);
+        setAlertSeverity('error')
+        setOpen(true)
         return
     })
     
@@ -156,6 +174,7 @@ const Pokemons_create = () => {
           <li className='button'><Button type='submit'>Crear pokemon</Button></li>
 
       </form>
+      <Use_Alert  open={open} setOpen={setOpen} msg={msg} severity={alertSeverity} />
     </div>
   )
 }

@@ -1,0 +1,14 @@
+.alert{
+    box-shadow: 16px 18px 22px -18px rgba(0,0,0,0.75);
+    -webkit-box-shadow: 16px 18px 22px -18px rgba(0,0,0,0.75);
+    -moz-box-shadow: 16px 18px 22px -18px rgba(0,0,0,0.75);
+}
+
+.modal{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    img{
+        width: 75px;
+    }
+}

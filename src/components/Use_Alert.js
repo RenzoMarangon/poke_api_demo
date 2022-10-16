@@ -3,13 +3,11 @@ import Button from '@mui/material/Button';
 import Snackbar from '@mui/material/Snackbar';
 import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close'
+import { Alert } from '@mui/material';
+import '../css/index.css'
 
-const Alert = ({open, setOpen, msg}) => {
+const Use_Alert = ({open, setOpen, msg, severity}) => {
 
-
-    const handleClick = () => {
-      setOpen(true);
-    };
   
     const handleClose = (event, reason) => {
       if (reason === 'clickaway') {
@@ -33,22 +31,19 @@ const Alert = ({open, setOpen, msg}) => {
     );
   
     return (
-      <div>
-        <Snackbar
-          open={open}
-          autoHideDuration={6000}
-          onClose={handleClose}
-          message={
-            msg.map(m => {return `${m.msg}\n \n`})
-          }
-          action={action}
-        />
-            
-      </div>
+      <Snackbar
+      className='alert' 
+      open={open} 
+      autoHideDuration={6000} 
+      onClose={handleClose} 
+      anchorOrigin={{vertical:'bottom',horizontal:'center'}}
+      >
+        <Alert onClose={handleClose} severity={severity} sx={{ width: '100%'}} >
+          {msg}
+        </Alert>
+      </Snackbar>
     );
 }
-
-export default Alert
 
 /*PARA USARLO
 
@@ -56,3 +51,5 @@ export default Alert
   <Alert open={open} setOpen={setOpen} msg={'Mensaje'}/>
 
 */
+
+export default Use_Alert;
