@@ -6,19 +6,16 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import Slide from '@mui/material/Slide';
-
-const succesIMG = './success.svg'
-const errorIMG = './errorIMG.jpg'
+import CircularProgress from '@mui/material/CircularProgress';
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
-const Use_Modal_Success = ({open,setOpen,pokemon,editOrDelete, thenOrCatch}) => {
+const Use_Modal_Process = ({ open,setOpen }) => {
     
       const handleClose = () => {
         setOpen(false);
-        thenOrCatch === 'then' && window.location.reload(); 
       };
     
       return (
@@ -31,15 +28,13 @@ const Use_Modal_Success = ({open,setOpen,pokemon,editOrDelete, thenOrCatch}) => 
             aria-describedby="alert-dialog-slide-description"
           >
             <DialogTitle>
-                { thenOrCatch === 'then' && `${!!pokemon && pokemon.name} ${ editOrDelete === 'delete' ? 'eliminado' : 'editado' } correctamente`}
-                { thenOrCatch === 'catch' && `Se ha producido un error`}
-              </DialogTitle>
+                Espere mientras se realiza la acción
+            </DialogTitle>
 
             <DialogContent>
               <DialogContentText id="alert-dialog-slide-description">
                 <div className='modal'>
-                  { thenOrCatch === 'then' && <img  src={succesIMG} />}
-                  { thenOrCatch === 'catch' && <img  src={errorIMG} />}
+                <CircularProgress />
                 </div>
               </DialogContentText>
             </DialogContent>
@@ -51,4 +46,4 @@ const Use_Modal_Success = ({open,setOpen,pokemon,editOrDelete, thenOrCatch}) => 
       );
 }
 
-export default Use_Modal_Success
+export default Use_Modal_Process

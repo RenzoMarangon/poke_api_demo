@@ -22,7 +22,7 @@ const Pokemon_edition = ({pokemon}) => {
   
   const options = ['Fuego', 'Agua', 'Eléctrico', 'Acero', 'Fantasma', 'Planta','Lucha', 'Roca','Psiquico','Dragon','Hada', 'Veneno','Volador','Bicho','Tierra','Normal','Hielo'];
 
-  const [value, setValue] = useState(options[0]);
+  const [value, setValue] = useState(pokemon.type);
   const [inputValue, setInputValue] = useState('');
 
   //alert
@@ -96,7 +96,7 @@ const Pokemon_edition = ({pokemon}) => {
 
 
   return (
-    <div className='pokemon_create'>
+    <div className='pokemon_edition'>
     <h2>Editar pokemon</h2>
     <form onSubmit={formHandleSubmitPokemon}>
 
@@ -104,6 +104,12 @@ const Pokemon_edition = ({pokemon}) => {
         
         {/* <li className='name'><TextField  label="Nombre" defaultValue={`${pokemon.name}`} name="name" onChange={ handleInputChange } type="text" /></li> */}
 
+        <img class='image_pokemon' src={`${pokemon.img}`} />
+
+        <li className='name'><TextField label="Nombre" defaultValue={`${pokemon.name}`} type="text" name="name" onChange={ handleInputChange } /></li> 
+        <li className='id'><TextField label="#ID" defaultValue={`${pokemon.numberID}`} type="text" name="numberID" onChange={ handleInputChange } /></li> 
+        
+        {/* Autocomplete */}
         <li className='type'>
           <Autocomplete
             value={value}
@@ -158,12 +164,9 @@ const Pokemon_edition = ({pokemon}) => {
             id="controllable-states-demo"
             options={options}
             sx={{ width: 300 }}
-            renderInput={(params) => <TextField {...params} label="Controllable" />}
+            renderInput={(params) => <TextField {...params} label="Tipo"  />}
           />
         </li> 
-        <li className='name'><TextField label="Nombre" defaultValue={`${pokemon.name}`} type="text" name="name" onChange={ handleInputChange } /></li> 
-
-        <li className='id'><TextField label="#ID" defaultValue={`${pokemon.numberID}`} type="text" name="numberID" onChange={ handleInputChange } /></li> 
         <li className='generation'><TextField  label="Generacion" defaultValue={`${pokemon.generation}`}  type="number" name="generation" onChange={ handleInputChange } placeholder={'Generacion'}  /></li> 
         <h3 className='title_stats'>Estadísticas</h3>
         <li className='hp'><TextField label="Puntos de vida" defaultValue={`${pokemon.stats.hp}`} type="number" name="hp" onChange={ inputStatstChange }   /></li> 

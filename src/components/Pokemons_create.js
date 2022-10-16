@@ -7,7 +7,6 @@ import Box from '@mui/material/Box';
 import { Button } from '@mui/material';
 import '../css/index.css'
 import Autocomplete from '@mui/material/Autocomplete';
-import Use_Alert from './Use_Alert';
 
 const Pokemons_create = () => {
 
@@ -23,10 +22,6 @@ const Pokemons_create = () => {
   const [ inputType, inputTypeChange ] = useState('');
 
 
-  //Alert
-  const [ open, setOpen ] = useState(false);
-  const [ msg, setMsg ] = useState('');
-  const [ alertSeverity, setAlertSeverity ] = useState('');
 
 
   const options = ['Fuego', 'Agua', 'Eléctrico', 'Acero', 'Fantasma', 'Planta','Lucha', 'Roca','Psiquico','Dragon','Hada', 'Veneno','Volador','Bicho','Tierra','Normal','Hielo'];
@@ -74,20 +69,12 @@ const Pokemons_create = () => {
         data,
         config)
       .then(()=>{
-        setAlertSeverity('success')
-        setMsg(`${pokeData.name} creado correctamente`)
-        setOpen(true)
 
-        setTimeout(()=>{
-          setOpen(false);
-          window.location.reload();
-        },2500)
       })
     })
     .catch((err)=>{
-        setMsg(err.response.data.errors.errors[0].msg);
-        setAlertSeverity('error')
-        setOpen(true)
+
+
         return
     })
     
@@ -167,14 +154,13 @@ const Pokemons_create = () => {
           <li className='sp_attk'><TextField id="outlined-basic" label="Ataque especial" variant="outlined" type="text" name="special_attk" onChange={ inputStatstChange }  required /> </li>
           <li className='sp_defense'><TextField id="outlined-basic" label="Defensa especial" variant="outlined" type="text" name="special_defense" onChange={ inputStatstChange }  required /></li>
           <li className='vel'><TextField id="outlined-basic" label="Velocidad" variant="outlined" type="text" name="velocity" onChange={ inputStatstChange }   required /></li>
-          <h3 class='title_image'>Imagen</h3>
-          <li className='img_file'><TextField id="outlined-basic"  variant="outlined" type="file" class="archive" name="archive" onChange={ (e)=>{ inputFileChange(e.target.files)} }   required /></li>
+          <h3 className='title_image'>Imagen</h3>
+          <li className='img_file'><TextField id="outlined-basic"  variant="outlined" type="file" className="archive" name="archive" onChange={ (e)=>{ inputFileChange(e.target.files)} }   required /></li>
 
       
           <li className='button'><Button type='submit'>Crear pokemon</Button></li>
 
       </form>
-      <Use_Alert  open={open} setOpen={setOpen} msg={msg} severity={alertSeverity} />
     </div>
   )
 }

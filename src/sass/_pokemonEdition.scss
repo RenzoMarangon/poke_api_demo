@@ -1,0 +1,41 @@
+.pokemon_edition{
+    padding: 1rem;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+form{
+    width: 50%;
+    list-style: none;
+    display: grid;
+    justify-content: center;
+    background-color: #fff;
+    border-radius: 1rem;
+    box-shadow: 10px 10px 28px -8px rgba(0,0,0,0.75);
+    box-shadow: 10px 10px 12px -10px rgba(0,0,0,0.75);
+    -webkit-box-shadow: 10px 10px 12px -10px rgba(0,0,0,0.75);
+    -moz-box-shadow: 10px 10px 12px -10px rgba(0,0,0,0.75);
+  
+
+    // h3{margin-bottom: .5rem;}
+    // .title_pokemon{grid-area: title_pokemon;}
+    // .title_stats{grid-area:title_stats;}
+    // .name{grid-area: name;}
+    // .id{grid-area: id;}
+    // .image_pokemon{grid-area:img}
+    // .generation{grid-area: generation;}
+    // .hp{grid-area: hp;}
+    // .attk{grid-area: attk;}
+    // .defense{grid-area: defense;}
+    // .sp_attk{grid-area: sp_attk;}
+    // .sp_defense{grid-area: sp_defense;}
+    // .vel{grid-area: vel;}
+    // .img{grid-area: img;}
+    // .button{grid-area: button;}
+    // .img_file{grid-area:img_file; }
+    // .button{grid-area:button;}
+    // .title_image{grid-area: title_image;}
+    // .type{grid-area:type;}
+}
+}

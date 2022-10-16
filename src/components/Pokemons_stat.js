@@ -5,6 +5,8 @@ import Use_Modal from './Use_Modal';
 import axios from 'axios';
 import Use_Modal_Success from './Use_Modal_Success';
 import Pokemon_edition from './Pokemon_edition';
+import Use_Modal_Process from './Use_Modal_process';
+
 const Pokemons_stat = ({pokemon, setIndex, setAside}) => {
     const { name, type, numberID, img, id } = pokemon;
 
@@ -12,7 +14,8 @@ const Pokemons_stat = ({pokemon, setIndex, setAside}) => {
     const [ editOrDelete, setEditOrDelete ] = useState('')
     const [ modalMsg, setModalMsg ] = useState('')
     const [ openModalSuccess, setOpenModalSuccess ] = useState(false)
-    const [ modalLoading, setModalLoading ] = useState(true)
+    const [ openModalProcess, setOpenModalProcess ] = useState(false)
+    const [ thenOrCatch, setThenOrCatch ] = useState('')
 
 
 
@@ -33,21 +36,18 @@ const Pokemons_stat = ({pokemon, setIndex, setAside}) => {
       //Cierro el modal de confirmacion
       setOpen(false)
       //Muestro el modal de 'en proceso'
-      setOpenModalSuccess(true)
+      setOpenModalProcess(true)
       
       axios.delete(url,config)
         .then(()=>{
-          setOpen(true);
-
-          
-          
-          
+          setOpenModalProcess(false)
+          setThenOrCatch('then')
+          setOpenModalSuccess(true);
         })
         .catch((response)=>{
-          // setMsg(`Error de conexión`)
-          // setSeverity('error')
-          // setOpenAlert(true)
-          console.log(response)
+          setOpenModalProcess(false)
+          setThenOrCatch('catch');
+          setOpenModalSuccess(true);
         })
     }
 
@@ -100,7 +100,8 @@ const Pokemons_stat = ({pokemon, setIndex, setAside}) => {
 
       {/* Modal y alert */}
       <Use_Modal open={ open } setOpen={ setOpen } pokemon={ pokemon } editOrDelete={ editOrDelete } button={ btn } msg={modalMsg} />
-      <Use_Modal_Success open={ openModalSuccess } setOpen={ setOpenModalSuccess } pokemon={ pokemon } editOrDelete={ editOrDelete } loading = {modalLoading} />
+      <Use_Modal_Success open={ openModalSuccess } setOpen={ setOpenModalSuccess } pokemon={ pokemon } editOrDelete={ editOrDelete } thenOrCatch={ thenOrCatch } />
+      <Use_Modal_Process open={ openModalProcess } setOpen={ setOpenModalProcess } />
     </div>
   )
 }

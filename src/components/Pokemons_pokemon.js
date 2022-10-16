@@ -20,25 +20,20 @@ const Pokemons_pokemon = ({pokemon, action}) => {
 
 
   return (
-    <Card onClick={()=>{action(pokemon)}}>
-      <CardContent >
+    <div onClick={()=>{action(pokemon)}}>
       {pokemon === true
       ? skeleton
       : (
           <div className='pokemons-container__pokemon'>
-          <img src={pokemon.img} />
-          <p>{pokemon.numberID}</p>
-          <p>{pokemon.name}</p>
-          <p>{pokemon.type}</p>
-          <p>{pokemon.generation}</p>
+            <img src={pokemon.img} />
+            <p>{pokemon.numberID}</p>
+            <p>{pokemon.name}</p>
+            <p>{pokemon.type}</p>
+            <p>{pokemon.generation}</p>
           </div>
         )}
-      </CardContent>
-    </Card>
+    </div>
     
-  // <>
-
-  // </>
   )
 }
 

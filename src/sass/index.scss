@@ -2,7 +2,7 @@
 @import "./faq";
 @import "./pokemonCreate";
 @import "./alert";
-
+@import './pokemonEdition';
 
 *{
     padding: 0;
@@ -30,7 +30,7 @@ body{
     //                      "headr headr";
     // grid-template-columns: 3fr 1fr;
 
-    main{
+    .showPokemons{
         display: grid;
         grid-template-columns: 3fr 1fr;
         justify-items: center;
@@ -110,6 +110,11 @@ body{
     width: 70%;
     border-radius: 1rem;
     position: relative;
+
+    box-shadow: 10px 10px 28px -8px rgba(0,0,0,0.75);
+    box-shadow: 10px 10px 12px -10px rgba(0,0,0,0.75);
+    -webkit-box-shadow: 10px 10px 12px -10px rgba(0,0,0,0.75);
+    -moz-box-shadow: 10px 10px 12px -10px rgba(0,0,0,0.75);
     img{
         position: absolute;
         top: -2rem;
@@ -148,8 +153,3 @@ body{
 }
 
 
-.delete_pokemons,.edit_pokemons{
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-}

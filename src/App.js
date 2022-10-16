@@ -9,16 +9,14 @@ import useAxios from "./hooks/useAxios";
 import './css/index.css'
 import Pokemons_container_skeleton from './components/Pokemons_container_skeleton';
 import axios from 'axios';
-import Pokemons_delete from './components/Pokemons_delete';
-import Pokemons_edit from './components/Pokemons_edit';
 import { Button, TextField } from '@mui/material';
 import useAlert from './components/Use_Alert';
-
 import Modal from './components/Modal';
 
 
 
 function App() {
+  const p = <></>
 
   const url = 'https://poke-apix.herokuapp.com/api/pokemon?limit=151';
 
@@ -50,7 +48,6 @@ function App() {
 
 
   useEffect(()=>{
-    console.log(data)
     !loading && setIndex(<Pokemons_container data={data} setAside={setAside} setIndex={setIndex}  />)
     !loading && setAside(<Pokemons_stat pokemon={ data.pokemons[data.pokemons.length-1] } setIndex={setIndex} setAside={setAside} />)
     
@@ -75,13 +72,15 @@ function App() {
       </header>
       
       <main>
+        {
+        //Pregunto si existe el aside y si es asi pongo una clase
+        <div className={ Object.keys(aside.props).length > 0 && 'showPokemons'}>
+          { index }
+          { aside }
 
-
-      { index }
-      { aside }
+        </div>
+        }
       </main>
-
-
       
     </div>
   );
